@@ -1,0 +1,22 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Poetry
+.venv/
+
+# Vector index (local data, not source)
+.index/
+
+# Ingested articles (local data, not source)
+articles/
+
+# IDE
+.idea/
+.vscode/
+
+# Claude
+.claude/settings.local.json
