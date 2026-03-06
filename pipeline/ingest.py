@@ -2,7 +2,7 @@ import logging
 import os
 import frontmatter
 from slugify import slugify
-from pipeline import parser, llm, embedder, store
+from pipeline import parser, llm, store
 
 log = logging.getLogger(__name__)
 
@@ -51,7 +51,7 @@ def run_ingest(url: str, model: str = None, embed_model: str = None, force: bool
         frontmatter.dump(post, f)
 
     log.info("Embedding document")
-    embedding = embedder.embed(f"{title}\n{formatted_text}", model=embed_model)
+    embedding = llm.embed(f"{title}\n{formatted_text}", model=embed_model)
 
     log.info("Storing in index")
     metadata = {

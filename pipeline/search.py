@@ -1,11 +1,11 @@
 import os
-from pipeline import embedder, store
+from pipeline import llm, store
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "..", ".index")
 
 
 def run_search(query_text: str, top_k: int = 5, embed_model: str = None) -> list[dict]:
-    embedding = embedder.embed(query_text, model=embed_model)
+    embedding = llm.embed(query_text, model=embed_model)
     collection = store.get_collection(DB_PATH)
     results = store.query(collection, embedding, n_results=top_k)
 

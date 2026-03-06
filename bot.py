@@ -9,7 +9,7 @@ load_dotenv()
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
-from pipeline.agent import run_agent
+from agent import run_agent
 
 logging.basicConfig(
     level=logging.INFO,

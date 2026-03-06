@@ -10,6 +10,7 @@ for _lib in ("httpcore", "httpx", "openai"):
 
 LM_STUDIO_URL = os.environ.get("LM_STUDIO_URL", "http://127.0.0.1:1234/v1")
 DEFAULT_MODEL = os.environ.get("LM_MODEL", "qwen/qwen3-vl-8b")
+DEFAULT_EMBED_MODEL = os.environ.get("LM_EMBED_MODEL", "text-embedding-nomic-ai-nomic-embed-text-v2-moe")
 
 _client = None
 
@@ -24,6 +25,13 @@ def _get_client() -> OpenAI:
             timeout=300.0,
         )
     return _client
+
+
+def embed(text: str, model: str = None) -> list[float]:
+    model = model or DEFAULT_EMBED_MODEL
+    log.debug("Embedding %d chars with model=%s", len(text), model)
+    response = _get_client().embeddings.create(model=model, input=text)
+    return response.data[0].embedding
 
 
 def format_as_markdown(title: str, text: str, model: str = None) -> str:
